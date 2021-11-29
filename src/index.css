@@ -4,35 +4,36 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  max-width:100%;
-  overflow-x: hidden !important;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
 }
 
-.nav {
-  background-color: #F2E9E4;
-}
-
-.main-title {
-  overflow-x: hidden !important;
-  padding: 20px;
-  font-size: 35px;
-}
-
 .App {
   max-width: 90%;
-  margin: 20px auto;
-  overflow-x: hidden !important;
+  margin: 30px auto;
+  overflow: auto;
   min-height: 300px;
   padding: 30px;
   border-radius: 5px;
 }
 
+.nav {
+  padding: 20px;
+  background-color: #F2E9E4;
+  color: #4A4E69;
+}
+
 .add-form {
   margin-bottom: 40px;
+}
+
+.destination-form{
+  border: 1px solid #4A4E69;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 5px;
 }
 
 .form-component {
@@ -63,7 +64,7 @@ body {
   font-family: 'Poppins', sans-serif;
   align-items: center;
   justify-content: center;
-}
+} 
 
 .form-component-check {
   display: flex;
@@ -82,7 +83,7 @@ body {
 
 .btn {
   display: inline-block;
-  background: #000;
+  background: #4A4E69;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -101,10 +102,22 @@ body {
 .btn:active {
   transform: scale(0.98);
 }
+.btn:hover{
+  color:#fff;
+}
 
 .btn-block {
   display: block;
   width: 100%;
+}
+
+.btn-add {
+  margin-left: auto;
+  display: block;
+  
+  right: 0;
+
+  
 }
 
 .form-component-select > div {
@@ -119,6 +132,8 @@ input[type=radio] {
   width: 10px;
   margin-right: 10px;
 }
+
+
 .destination-card {
   min-height: 150px;
   display: block;
@@ -130,3 +145,4 @@ input[type=radio] {
   font-size: 17px;
   text-align: left;
 }
+

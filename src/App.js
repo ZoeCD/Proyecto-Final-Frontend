@@ -4,7 +4,7 @@ import {Routes,Route,Link,Outlet} from 'react-router-dom';
 import AddDestination from './components/AddDestination';
 import DestinationCard from './components/DestinationCard';
 import Grid from './components/Grid';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from './components/Button'
 
 
 
@@ -15,6 +15,18 @@ function Header(){
         <h1 className="main-title">BucketList</h1>
       </nav>      
     </header>
+  )
+}
+
+function FormButton({onAdd, showAdd}){
+  return(
+    <div>
+      <Button
+          color={showAdd ? '#C9ADA7': '#4A4E69'}
+          text={showAdd ? 'Close' : 'Add'}
+          onClick={onAdd}
+        />
+    </div>
   )
 }
 
@@ -31,7 +43,9 @@ function Error404(){
 
 
 function App() {
-  //An array of objects
+  const [showAddDestination, setShowAddDestination] = useState (false)
+
+
   const destinations = [
     {
       'name': 'NAME',
@@ -68,7 +82,10 @@ function App() {
     <div>
       <Header/>
       <div className='App'>
-        
+        <FormButton
+          onAdd={() => setShowAddDestination(!showAddDestination)}
+          showAdd={showAddDestination}/>
+        {showAddDestination && <AddDestination/>}      
         <Grid colCount={3} md={4}>
         { 
           destinations.length > 0 ? destinations.map(item => <DestinationCard destination={item}  />) : [<p>No destinations are found.</p>]
