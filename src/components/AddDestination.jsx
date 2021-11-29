@@ -1,34 +1,41 @@
+import React from 'react';
+
 const AddDestination = () => {
     return (
-        
-        <form className = 'destination-form'>
-            <div className = 'form-component'> 
+
+        <form className='destination-form'>
+            <div className='form-component'>
                 <label>Name</label>
-                <input type = 'text' placeholder = 'Add new goal'/>
+                <input type='text' placeholder='Add new goal' />
             </div>
-            <div className = 'form-component'> 
+            <div className='form-component'>
                 <label>Description</label>
-                <input type = 'text' placeholder = 'What is it about?'/>
+                <textarea placeholder='What is it about?' />
             </div>
-            <div className = 'form-component'> 
+            <div className='form-component'>
                 <label>Type</label>
-                <select className='form-component-select'>
-                    <option value="city">City</option>
-                    <option value="Monument">Monument</option>
-                    <option value="Activity">Activity</option>
-                </select>
+                <div className="form-component-select">
+                    <div>
+                        <input type="radio" name="city" id="city" />
+                        <label htmlFor="city">City</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="monument" id="monument" />
+                        <label htmlFor="monument">Monument</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="activity" id="activity" />
+                        <label htmlFor="activity">Activity</label>
+                    </div>
+                </div>
             </div>
-            <div className = 'form-component form-component-check'> 
-                <label>Done</label>
-                <input type = 'checkbox'/>
-            </div>
-            
-            <input type='submit' value= 'Save Goal'  className='btn btn-block' />
-            
+
+            <input type='submit' value='Save Goal' className='btn btn-block' />
+
         </form>
 
 
-        
+
     )
 
 }
