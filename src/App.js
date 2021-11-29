@@ -2,12 +2,17 @@ import './App.css';
 import React, {useState,useEffect} from 'react';
 import {Routes,Route,Link,Outlet} from 'react-router-dom';
 import AddDestination from './components/AddDestination';
+import DestinationCard from './components/DestinationCard';
+import Grid from './components/Grid';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Encabezado(){
+
+
+function Header(){
   return(
     <header>
       <nav className="nav">
-        <span className="nav-link"><Link to="/">BucketList</Link></span>
+        <h1 className="main-title">BucketList</h1>
       </nav>      
     </header>
   )
@@ -26,10 +31,52 @@ function Error404(){
 
 
 function App() {
+  //An array of objects
+  const destinations = [
+    {
+      'name': 'NAME',
+      'description': 'ncwenfieii',
+      'type':'city',
+      'price':100,
+      'done': true
+    },
+    {
+      'name': 'NAME2',
+      'description': 'ncwenfieii',
+      'type':'city',
+      'price':100,
+      'done': false
+    },
+    {
+      'name': 'NAME3',
+      'description': 'ncwenfieii',
+      'type':'city',
+      'price':100,
+      'done': true
+    },
+    {
+      'name': 'NAME4',
+      'description': 'ncwenfieii',
+      'type':'city',
+      'price':100,
+      'done': false
+    },
+
+  ]
+
   return (
-    <div className="App">
-      <h1>BucketList</h1>
-      <AddDestination/>
+    <div>
+      <Header/>
+      <div className='App'>
+        
+        <Grid colCount={3} md={4}>
+        { 
+          destinations.length > 0 ? destinations.map(item => <DestinationCard destination={item}  />) : [<p>No destinations are found.</p>]
+        }
+        </Grid>
+
+      </div>
+      
     </div>
   );
 }

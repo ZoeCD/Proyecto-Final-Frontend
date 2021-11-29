@@ -4,18 +4,29 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  max-width:100%;
+  overflow-x: hidden !important;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
 }
 
+.nav {
+  background-color: #F2E9E4;
+}
+
+.main-title {
+  overflow-x: hidden !important;
+  padding: 20px;
+  font-size: 35px;
+}
+
 .App {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
+  max-width: 90%;
+  margin: 20px auto;
+  overflow-x: hidden !important;
   min-height: 300px;
-  border: 1px solid rgb(46, 150, 119);
   padding: 30px;
   border-radius: 5px;
 }
@@ -91,4 +102,16 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+
+.destination-card {
+  min-height: 150px;
+  display: block;
+  margin: 15px auto;
+  padding: 30px;
+  border-radius: 5px;
+  border: 1px solid #4A4E69;
+  max-width: 250px;
+  font-size: 17px;
+  text-align: left;
 }
