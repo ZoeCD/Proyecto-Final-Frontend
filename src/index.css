@@ -34,21 +34,24 @@ body {
   text-align: left;
 }
 
-.form-component input {
+.form-component input, .form-component textarea {
   width: 100%;
-  height: 40px;
+  line-height: 40px;
   margin: 5px;
   padding: 3px 7px;
-  font-size: 17px;
+  font-size: 1rem;
 }
 
 .form-component-select {
+  display: flex;
   width: 100%;
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
   font-family: 'Poppins', sans-serif;
+  align-items: center;
+  justify-content: center;
 } 
 
 .form-component-check {
@@ -91,4 +94,17 @@ body {
 .btn-block {
   display: block;
   width: 100%;
+}
+
+.form-component-select > div {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type=radio] {
+  flex-grow: 0;
+  width: 10px;
+  margin-right: 10px;
 }
