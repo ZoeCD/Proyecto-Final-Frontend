@@ -135,7 +135,7 @@ input[type=radio] {
 
 
 .destination-card {
-  min-height: 150px;
+  min-height: 200px;
   display: block;
   margin: 15px auto;
   padding: 30px;
@@ -144,5 +144,16 @@ input[type=radio] {
   max-width: 250px;
   font-size: 17px;
   text-align: left;
+  word-wrap: break-word;
+}
+
+.edit-icon {
+  display: block;
+  text-align: right;
+
+}
+.delete-icon {
+  display: block;
+  text-align: right;
 }
 

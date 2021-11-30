@@ -44,39 +44,24 @@ function Error404(){
 
 function App() {
   const [showAddDestination, setShowAddDestination] = useState (false)
+  const [destinations, setDestinations] = useState([])
+  
+  const addDestination = destination =>{
+    const id = Math.floor(Math.random()*10000) +1
+    const newDest = {id, ...destination}
+
+    const newDestinations = [newDest, ...destinations]
+    setDestinations(newDestinations)
+      
+  }
+  
+  const deleteDestination = id => {
+    const deleteDest = [... destinations].filter(dest => dest.id !== id)
+
+    setDestinations(deleteDest)
+  }
 
 
-  const destinations = [
-    {
-      'name': 'NAME',
-      'description': 'ncwenfieii',
-      'type':'city',
-      'price':100,
-      'done': true
-    },
-    {
-      'name': 'NAME2',
-      'description': 'ncwenfieii',
-      'type':'city',
-      'price':100,
-      'done': false
-    },
-    {
-      'name': 'NAME3',
-      'description': 'ncwenfieii',
-      'type':'city',
-      'price':100,
-      'done': true
-    },
-    {
-      'name': 'NAME4',
-      'description': 'ncwenfieii',
-      'type':'city',
-      'price':100,
-      'done': false
-    },
-
-  ]
 
   return (
     <div>
@@ -85,12 +70,12 @@ function App() {
         <FormButton
           onAdd={() => setShowAddDestination(!showAddDestination)}
           showAdd={showAddDestination}/>
-        {showAddDestination && <AddDestination/>}      
+        {showAddDestination && <AddDestination onAdd={addDestination}/>}      
         <Grid colCount={3} md={4}>
         { 
-          destinations.length > 0 ? destinations.map(item => <DestinationCard destination={item}  />) : [<p>No destinations are found.</p>]
+          destinations.length > 0 ? destinations.map(item => <DestinationCard destination={item} deleteDestination={deleteDestination} />) : [<p>No destinations are found.</p>]
         }
-        </Grid>
+      </Grid>
 
       </div>
       
