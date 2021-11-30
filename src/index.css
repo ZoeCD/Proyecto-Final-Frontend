@@ -11,18 +11,26 @@ body {
 }
 
 .App {
-  max-width: 90%;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  padding: 30px;
-  border-radius: 5px;
+  max-width: 1240px;
+  margin: 0px auto;
+  padding: 60px;
+  position: relative;
 }
 
-.nav {
-  padding: 20px;
+header {
   background-color: #F2E9E4;
   color: #4A4E69;
+  padding: 30px
+}
+
+nav {
+  max-width: 1240px;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .add-form {
@@ -30,10 +38,15 @@ body {
 }
 
 .destination-form{
-  border: 1px solid #4A4E69;
+  background-color: #fff;
   margin: 30px auto;
   padding: 30px;
   border-radius: 5px;
+  max-width: 750px;
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  box-shadow: 5px 5px 10px #4A4E6980;
 }
 
 .form-component {
@@ -46,12 +59,19 @@ body {
   text-align: left;
 }
 
+input[type=text] {
+  padding: 3px 7px;
+  border-radius: 4px;
+  border-width: 1px;
+}
+
 .form-component input, .form-component textarea {
   width: 100%;
   line-height: 40px;
   margin: 5px;
   padding: 3px 7px;
   font-size: 1rem;
+  border-radius: 4px;
 }
 
 .form-component-select {
@@ -131,20 +151,20 @@ input[type=radio] {
   flex-grow: 0;
   width: 10px;
   margin-right: 10px;
+  margin-bottom: calc(5px + 0.5rem);
 }
 
 
 .destination-card {
-  min-height: 200px;
   display: block;
   margin: 15px auto;
   padding: 30px;
   border-radius: 5px;
-  border: 1px solid #4A4E69;
-  max-width: 250px;
+  box-shadow: 5px 5px 10px #4A4E6980;
   font-size: 17px;
   text-align: left;
   word-wrap: break-word;
+  width: 100%;
 }
 
 .edit-icon {
@@ -157,3 +177,14 @@ input[type=radio] {
   text-align: right;
 }
 
+.grid {
+  position: relative;
+  width: 100%;
+  display: grid;
+  justify-content: stretch;
+  justify-items: stretch;
+  align-content: stretch;
+  align-items: flex-start;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px;
+  grid-auto-flow: row; }

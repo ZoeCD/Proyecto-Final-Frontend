@@ -1,84 +1,59 @@
 import './App.css';
-import React, {useState,useEffect} from 'react';
-import {Routes,Route,Link,Outlet} from 'react-router-dom';
+import React, { useState } from 'react';
 import AddDestination from './components/AddDestination';
-import DestinationCard from './components/DestinationCard';
-import Grid from './components/Grid';
 import Button from './components/Button'
+import Destinations from './Destinations';
 
 
 
-function Header(){
-  return(
+function Header({ stateChanger }) {
+  const updateUser = () => {
+    var username = document.querySelector('input[name=username]').value;
+    stateChanger(username);
+  }
+
+  return (
     <header>
       <nav className="nav">
-        <h1 className="main-title">BucketList</h1>
-      </nav>      
+        <h1 className="main-title">Bucketlist</h1>
+        <div>
+          <text style={{marginRight: 10 + 'px'}}>Username:</text>
+          <input type="text" placeholder="username" defaultValue='' name="username"
+            onChange={updateUser} />
+        </div>
+      </nav>
     </header>
   )
 }
 
-function FormButton({onAdd, showAdd}){
-  return(
+function DestForm(username) {
+  const [visible, setVisible] = useState(false);
+  return (
     <div>
       <Button
-          color={showAdd ? '#C9ADA7': '#4A4E69'}
-          text={showAdd ? 'Close' : 'Add'}
-          onClick={onAdd}
-        />
-    </div>
-  )
-}
-
-
-
-function Error404(){
-  return(
-    <div>
-      <h1>404 (Not found)</h1>
-      <Link to="/">Ir al Home</Link>
+        color={visible ? '#C9ADA7' : '#4A4E69'}
+        text={visible ? 'Close' : 'Add'}
+        onClick={() => setVisible(visible === false)}
+      />
+      {visible && <AddDestination username={username.username} />}
     </div>
   )
 }
 
 
 function App() {
-  const [showAddDestination, setShowAddDestination] = useState (false)
-  const [destinations, setDestinations] = useState([])
-  
-  const addDestination = destination =>{
-    const id = Math.floor(Math.random()*10000) +1
-    const newDest = {id, ...destination}
-
-    const newDestinations = [newDest, ...destinations]
-    setDestinations(newDestinations)
-      
-  }
-  
-  const deleteDestination = id => {
-    const deleteDest = [... destinations].filter(dest => dest.id !== id)
-
-    setDestinations(deleteDest)
-  }
-
-
+  const [username, setUsername] = useState('');
 
   return (
     <div>
-      <Header/>
-      <div className='App'>
-        <FormButton
-          onAdd={() => setShowAddDestination(!showAddDestination)}
-          showAdd={showAddDestination}/>
-        {showAddDestination && <AddDestination onAdd={addDestination}/>}      
-        <Grid colCount={3} md={4}>
-        { 
-          destinations.length > 0 ? destinations.map(item => <DestinationCard destination={item} deleteDestination={deleteDestination} />) : [<p>No destinations are found.</p>]
-        }
-      </Grid>
-
-      </div>
-      
+      <Header username={username} stateChanger={setUsername} />
+      {username !== '' && <div className='App'>
+        <DestForm username={username} />
+        <Destinations username={username} />
+      </div>}
+      {username === '' && <div className='App'>
+        <h2>Search for a name</h2>
+      </div>}
     </div>
   );
 }
