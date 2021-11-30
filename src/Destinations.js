@@ -1,23 +1,57 @@
 import React, { useState, useEffect } from 'react';
+import AddDestination from './components/AddDestination';
 import Button from './components/Button'
-import { IoMdClose } from "react-icons/io"
-import { FiEdit } from "react-icons/fi"
 
-function Destination({data}, username) {
+function DestForm({ username, updateDestinations}) {
+    const [visible, setVisible] = useState(false);
+    return (
+        <div>
+            <Button
+                color={visible ? '#C9ADA7' : '#4A4E69'}
+                text={visible ? 'Close' : 'Add'}
+                onClick={() => setVisible(visible === false)}
+            />
+            {visible && <AddDestination username={username} updateDestinations={updateDestinations} />}
+        </div>
+    )
+}
+
+function Destination({ data, updateDestinations }) {
     const [done, setDone] = useState(data.done);
-    const completeDest = (e) => {
+
+    const completeDest = () => {
         fetch(`/api/destination/${data._id}`, {
             method: "PUT",
             credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({done: !done, username: data.owner})
+            body: JSON.stringify({ done: !done, username: data.owner })
         })
-        .then(res => res.json())
+            .then(res => res.json())
             .then(res => {
                 if (res.status === 200) {
                     setDone(done === false);
+                } else {
+                    console.log(res);
+                    alert('Something went wrong, please try again');
+                }
+            })
+    }
+
+    const deleteCard = () => {
+        fetch(`/api/destination/${data._id}`, {
+            method: "DELETE",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username: data.owner })
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.status === 200) {
+                    updateDestinations()
                 } else {
                     console.log(res);
                     alert('Something went wrong, please try again');
@@ -30,20 +64,44 @@ function Destination({data}, username) {
             <h3>{data.name}</h3>
             <p> {data.type} </p>
             <p>{data.description}</p>
-            <Button
-                color={done ? '#C9ADA7' : '#4A4E69'}
-                text={done ? 'Undo' : 'Complete'}
-                onClick={(e) => completeDest(e)}
-            />
+            <div className="grid">
+                <Button
+                    color='#ff0000'
+                    text='Delete'
+                    onClick={(e) => deleteCard(e)}
+                />
+                <Button
+                    color={done ? '#C9ADA7' : '#4A4E69'}
+                    text={done ? 'Undo' : 'Complete'}
+                    onClick={(e) => completeDest(e)}
+                />
+            </div>
+        </div>
+    )
+}
+
+function DestinationsComp({ destinations,  updateDestinations}) {
+    let destinationCards;
+    if (destinations && destinations.length) {
+        destinationCards = destinations.map((destination) => {
+            return (
+                <Destination data={destination} updateDestinations={updateDestinations} />
+            )
+        })
+    } else {
+        destinationCards = [<p>No destinations, add one</p>]
+    }
+    return (
+        <div className="grid">
+            {destinationCards}
         </div>
     )
 }
 
 export default function Destinations({ username }) {
     const [destinations, setDestinations] = useState([])
-    let destinationCards;
 
-    useEffect(() => {
+    const updateDestinations = () => {
         fetch(`/api/destination?username=${username}`, {
             method: "GET",
             credentials: "same-origin",
@@ -53,24 +111,17 @@ export default function Destinations({ username }) {
         })
             .then(res => res.json())
             .then(dest => {
-                dest.username = username;
-                setDestinations(dest);
+                setDestinations(dest.items);
             })
         return () => { };
-    }, [username]);
-
-    if (destinations && destinations.items && destinations.items.length) {
-        destinationCards = destinations.items.map((destination) => {
-            return (
-                <Destination data={destination} username={destinations.username}/>
-            )
-        })
-    } else {
-        destinationCards = [<p>No destinations, add one</p>]
     }
+
+    useEffect(updateDestinations, [username]);
+
     return (
-        <div className="grid">
-            {destinationCards}
+        <div className='App'>
+            <DestForm username={username} updateDestinations={updateDestinations}/>
+            <DestinationsComp destinations={destinations} updateDestinations={updateDestinations} />
         </div>
     )
 }

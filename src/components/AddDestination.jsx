@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 
-const AddDestination = ({ username }) => {
+const AddDestination = ({ username, updateDestinations}) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [type, setType] = useState('')
-
     const onSubmit = (e) => {
         e.preventDefault()
         if (!name || !description) {
@@ -20,12 +19,15 @@ const AddDestination = ({ username }) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dest)
-        }).then(res => {
+        })
+        .then(res=>res.json())
+        .then(res => {
             if (res.status !== 200) {
                 console.error(res);
+                alert(res.message)
                 return;
             }
-
+            updateDestinations();
             setName('')
             setDescription('')
             setType('')
