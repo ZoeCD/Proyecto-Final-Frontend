@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-const AddDestination = ({username}) => {
+
+const AddDestination = ({ username }) => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [type, setType] = useState('')
@@ -68,9 +69,6 @@ const AddDestination = ({username}) => {
             <input type='submit' value='Save Goal' className='btn btn-block' />
 
         </form>
-
-
-
     )
 
 }
